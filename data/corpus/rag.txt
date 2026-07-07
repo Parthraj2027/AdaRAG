@@ -1,0 +1,11 @@
+Retrieval-Augmented Generation (RAG) combines a retriever with a large language model.
+
+FAISS is developed by Meta.
+
+HTTP/3 uses QUIC.
+
+QUIC was originally developed by Google.
+
+TCP is a reliable transport protocol.
+
+UDP is connectionless.

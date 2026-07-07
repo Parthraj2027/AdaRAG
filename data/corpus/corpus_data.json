@@ -1,0 +1,32 @@
+[
+  {
+    "text": "Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval from an external knowledge base with a generative large language model (LLM). This framework helps address LLM limitations such as factual hallucinations, lack of private domain knowledge, and outdated training data. In a typical RAG system, user queries are first embedded, then compared against a vectorized corpus to extract the top-k most similar text chunks. These chunks are then appended to the user prompt to construct a grounded context for the generator."
+  },
+  {
+    "text": "FAISS (Facebook AI Similarity Search) is an open-source library developed by Meta's Fundamental AI Research group. It is specifically designed for efficient similarity search and clustering of dense vectors. FAISS contains algorithms that search in sets of vectors of any size, up to ones that possibly do not fit in RAM. It supports standard indexing approaches, including flat indexes using L2 distance or inner product, inverted file indexes for sub-linear search times, and quantized indices for reduced memory footprint."
+  },
+  {
+    "text": "HTTP/3 is the third major version of the Hypertext Transfer Protocol. Unlike HTTP/1.1 and HTTP/2, which rely on the Transmission Control Protocol (TCP), HTTP/3 runs on top of QUIC. QUIC is a multiplexed and secure transport protocol originally designed and proposed by Google in 2012. By utilizing QUIC, HTTP/3 solves the head-of-line blocking problem inherent in TCP, provides faster connection establishment via zero round-trip time (0-RTT) handshakes, and maintains connection stability during network migrations."
+  },
+  {
+    "text": "The Transmission Control Protocol (TCP) is a core protocol of the Internet Protocol Suite. It provides reliable, ordered, and error-checked delivery of a stream of octets between applications running on hosts communicating over an IP network. TCP is connection-oriented, requiring a three-way handshake before data transfer starts. In contrast, the User Datagram Protocol (UDP) is a simpler, connectionless communication protocol that does not guarantee delivery, order, or error correction, making it ideal for real-time applications like video streaming and gaming."
+  },
+  {
+    "text": "SentenceTransformers is a Python framework for state-of-the-art sentence, text, and image embeddings. It allows users to compute dense vector representations for sentences or paragraphs using pretrained transformer models. The BAAI bge-small-en-v1.5 model is a highly efficient open-source text embedding model trained by the Beijing Academy of Artificial Intelligence. It maps queries and document chunks into a 384-dimensional vector space, exhibiting strong performance on retrieval benchmarks while maintaining low inference latency."
+  },
+  {
+    "text": "spaCy is a free, open-source library for advanced Natural Language Processing in Python. It is designed specifically for production use, offering industrial-strength speed and accuracy. spaCy provides pre-trained pipelines for tokenization, parsing, named entity recognition (NER), part-of-speech tagging, and text classification. The 'en_core_web_sm' model is a small English pipeline that includes components for tagger, parser, senter, and ner, trained on written web text."
+  },
+  {
+    "text": "OpenAI is an artificial intelligence research laboratory that developed the Generative Pre-trained Transformer (GPT) series of models. The gpt-4o-mini model is a highly efficient, lightweight version of OpenAI's GPT-4o, optimized for speed, cost, and high performance on reasoning tasks. It is widely used in RAG systems as the response generation agent because of its stable API and lower cost per token."
+  },
+  {
+    "text": "HotpotQA is a dataset for diverse, explainable multi-hop question answering. It features 113,000 QA pairs based on Wikipedia, requiring systems to find and reason over multiple supporting documents to answer a question. The dataset is notable because it provides sentence-level supporting facts (gold sentences) that the models must locate to perform reasoning, presenting a rigorous testbed for multi-hop RAG systems."
+  },
+  {
+    "text": "Quantum computing is a multidisciplinary field comprising aspects of computer science, physics, and mathematics that utilizes quantum mechanics to solve complex problems faster than on classical computers. The field of quantum computing includes hardware research and application development. Quantum computers make use of qubits, which can exist in superposition, allowing them to perform computation in parallel."
+  },
+  {
+    "text": "Photosynthesis is the chemical process by which green plants, algae, and some bacteria convert light energy, usually from the sun, into chemical energy in the form of glucose. The process occurs in the chloroplasts of plant cells, utilizing carbon dioxide and water to produce oxygen and sugar. The general equation is 6CO2 + 6H2O + light energy yields C6H12O6 + 6O2."
+  }
+]
