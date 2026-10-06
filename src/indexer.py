@@ -34,22 +34,42 @@ class Indexer:
         logger.info("Starting index construction...")
         documents = []
         corpus_path = Path(CORPUS_DIR)
-        for path in corpus_path.glob("**/*"):
-            if path.suffix == ".txt":
-                text = path.read_text(encoding="utf-8")
-                chunks = self.chunk_text(text)
-                documents.extend(chunks)
-            elif path.suffix == ".json":
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        for item in data:
-                            if isinstance(item, str):
-                                chunks = self.chunk_text(item)
-                                documents.extend(chunks)
-                            elif isinstance(item, dict) and "text" in item:
-                                chunks = self.chunk_text(item["text"])
-                                documents.extend(chunks)
+        # Prefer a single explicit corpus source to avoid mixing unrelated datasets.
+        preferred_sources = [
+            corpus_path / "hotpot_corpus.json",
+            corpus_path / "corpus_data.json",
+        ]
+
+        chosen_source = next((p for p in preferred_sources if p.exists()), None)
+        if chosen_source is not None:
+            logger.info(f"Using corpus source: {chosen_source.name}")
+            with open(chosen_source, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                for item in data:
+                    if isinstance(item, str):
+                        chunks = self.chunk_text(item)
+                        documents.extend(chunks)
+                    elif isinstance(item, dict) and "text" in item:
+                        chunks = self.chunk_text(item["text"])
+                        documents.extend(chunks)
+        else:
+            for path in corpus_path.glob("**/*"):
+                if path.suffix == ".txt":
+                    text = path.read_text(encoding="utf-8")
+                    chunks = self.chunk_text(text)
+                    documents.extend(chunks)
+                elif path.suffix == ".json":
+                    with open(path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        if isinstance(data, list):
+                            for item in data:
+                                if isinstance(item, str):
+                                    chunks = self.chunk_text(item)
+                                    documents.extend(chunks)
+                                elif isinstance(item, dict) and "text" in item:
+                                    chunks = self.chunk_text(item["text"])
+                                    documents.extend(chunks)
         if not documents:
             raise FileNotFoundError("No source documents found in data/corpus.")
         logger.info(f"Indexing {len(documents)} document chunks...")

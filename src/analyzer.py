@@ -24,11 +24,11 @@ class QueryFeatures:
     date_count: int
     comparison: int
     boolean: int
+    is_yes_no: int
     listing: int
     multihop: int
     reasoning: int
     constraint_count: int
-    intent: str
 
 class QueryAnalyzer:
     def __init__(self):
@@ -62,20 +62,18 @@ class QueryAnalyzer:
                 date_count += 1
         token_set = {t.text.lower() for t in tokens}
         comparison_val = int(any(w in token_set for w in COMPARE_KEYWORDS))
-        boolean_val = int(any(w in token_set for w in BOOLEAN_KEYWORDS))
+        is_yes_no = self.detect_yn_question(doc)
+        boolean_val = int(is_yes_no or any(w in token_set for w in BOOLEAN_KEYWORDS))
         listing_val = int(any(w in token_set for w in LIST_KEYWORDS))
+        distinct_entities = len(set(ent.text for ent in doc.ents))
+        has_conjunction = any(t.text.lower() in ("and", "or", "as well as") for t in doc)
         multihop_val = int(any(w in token_set for w in MULTIHOP_KEYWORDS))
+        if distinct_entities >= 3:
+            multihop_val = max(multihop_val, 1)
+        if has_conjunction and distinct_entities >= 2:
+            multihop_val = max(multihop_val, 1)
         reasoning_val = sum(1 for w in token_set if w in REASONING_KEYWORDS)
-        constraint_val = sum(1 for w in token_set if w in CONSTRAINT_KEYWORDS)
-        intent = "factoid"
-        if comparison_val:
-            intent = "comparison"
-        elif reasoning_val > 0:
-            intent = "explanation"
-        elif listing_val:
-            intent = "listing"
-        elif boolean_val:
-            intent = "boolean"
+        constraint_val = sum(1 for w in token_set if w in CONSTRAINT_KEYWORDS) + is_yes_no
         return QueryFeatures(
             token_count=token_count,
             character_count=character_count,
@@ -89,12 +87,18 @@ class QueryAnalyzer:
             date_count=date_count,
             comparison=comparison_val,
             boolean=boolean_val,
+            is_yes_no=is_yes_no,
             listing=listing_val,
             multihop=multihop_val,
             reasoning=reasoning_val,
-            constraint_count=constraint_val,
-            intent=intent
+            constraint_count=constraint_val
         )
+
+    @staticmethod
+    def detect_yn_question(doc) -> int:
+        if not doc:
+            return 0
+        return int(doc[0].tag_ in ("VBZ", "VBP", "VBD", "MD"))
 
     @staticmethod
     def to_dict(features: QueryFeatures) -> dict:

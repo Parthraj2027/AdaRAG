@@ -26,7 +26,10 @@ class Retriever:
         query_embedding = self.embedder.encode(query)
         query_embedding = np.asarray([query_embedding], dtype=np.float32)
         faiss.normalize_L2(query_embedding)
-        scores, indices = self.index.search(query_embedding, top_k)
+        actual_k = min(top_k, self.index.ntotal)
+        if actual_k < top_k:
+            logger.warning(f"Requested top_k={top_k} but index only has {self.index.ntotal} docs. Using actual_k={actual_k}.")
+        scores, indices = self.index.search(query_embedding, actual_k)
         results = []
         for score, idx in zip(scores[0], indices[0]):
             if idx == -1:

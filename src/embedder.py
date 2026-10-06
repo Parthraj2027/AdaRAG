@@ -11,7 +11,8 @@ class Embedder:
             logger.info("Loading embedding model...")
             Embedder._model = SentenceTransformer(
                 EMBEDDING_MODEL,
-                device=DEVICE
+                device=DEVICE,
+                local_files_only=True
             )
             logger.info(f"Loaded: {EMBEDDING_MODEL}")
         self.model = Embedder._model

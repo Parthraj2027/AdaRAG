@@ -1,0 +1,17 @@
+{
+  "weights": {
+    "lexical": 0.15,
+    "entity": 0.2,
+    "reasoning": 0.25,
+    "constraint": 0.2,
+    "multihop": 0.2
+  },
+  "thresholds": {
+    "strategy": "percentile",
+    "low": 2.31,
+    "medium": 4.11,
+    "low_percentile": 33,
+    "medium_percentile": 67
+  },
+  "note": "Percentile thresholds are recalibrated per evaluation slice. For publication, tune on a held-out validation set: python run.py --mode tune --sample_size 1000 --val_size 200"
+}

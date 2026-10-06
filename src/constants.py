@@ -1,9 +1,9 @@
-TOP_K_LOW = 3
-TOP_K_MEDIUM = 7
+TOP_K_LOW = 5
+TOP_K_MEDIUM = 8
 TOP_K_HIGH = 12
 
-LOW_THRESHOLD = 3
-MEDIUM_THRESHOLD = 7
+LOW_THRESHOLD = 1.38
+MEDIUM_THRESHOLD = 2.45
 
 COMPARE_KEYWORDS = {
     "compare",
@@ -31,21 +31,17 @@ LIST_KEYWORDS = {
 }
 
 BOOLEAN_KEYWORDS = {
-    "is",
-    "are",
-    "was",
-    "were",
-    "can",
-    "could",
-    "should",
-    "would",
-    "does",
-    "do",
-    "did",
-    "has",
-    "have",
-    "had",
-    "whether"
+    "whether",
+    "if",
+    "either",
+    "neither",
+    "both",
+    "all",
+    "none",
+    "always",
+    "never",
+    "solely",
+    "exclusively"
 }
 
 MULTIHOP_KEYWORDS = {
